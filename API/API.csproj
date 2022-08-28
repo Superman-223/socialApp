@@ -12,6 +12,8 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="SQLite" Version="3.13.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.22.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,9 +23,19 @@
     <None Remove="Data\" />
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
     <None Remove="SQLite" />
+    <None Remove="DTOs\" />
+    <None Remove="Interface\" />
+    <None Remove="Service\" />
+    <None Remove="System.IdentityModel.Tokens.Jwt" />
+    <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <None Remove="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Data\" />
+    <Folder Include="DTOs\" />
+    <Folder Include="Interface\" />
+    <Folder Include="Services\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 </Project>
