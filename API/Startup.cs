@@ -23,7 +23,6 @@ namespace API
         {
 
             services.AddControllers();
-        
             services.AddCors();
             services.AddApplicationService(_config);
             services.AddIdentityServices(_config);

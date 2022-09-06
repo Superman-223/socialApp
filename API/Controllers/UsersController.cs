@@ -6,6 +6,7 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
+using API.Helpers;
 using API.Interface;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -32,9 +33,13 @@ namespace API.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+        public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
-          return Ok(await _userRepo.GetMembersAsync());
+          var users = await _userRepo.GetMembersAsync(userParams);
+
+          Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
+
+          return Ok(users);
         }
          
 
@@ -76,9 +81,8 @@ namespace API.Controllers
             };
 
             if(user.Photos.Count == 0)
-            {
                 photo.IsMain = true;
-            }
+            
             user.Photos.Add(photo);
 
             if (await _userRepo.SaveAllAsync())
