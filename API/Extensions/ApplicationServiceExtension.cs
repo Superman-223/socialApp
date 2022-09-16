@@ -14,6 +14,8 @@ namespace API.Extensions
         public static IServiceCollection AddApplicationService(this IServiceCollection services, IConfiguration config)
         {
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<ILikesRepository, LikesRepository>();
+            services.AddScoped<LogUserActivity>();
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
             services.AddDbContext<DataContext>(options => {
                 options.UseSqlite(config.GetConnectionString("DefaultConnection"));

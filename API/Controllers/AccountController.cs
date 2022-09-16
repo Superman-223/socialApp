@@ -15,7 +15,6 @@ namespace API.Controllers
 {
     public class AccountController : BaseController
     {
-
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
@@ -47,7 +46,8 @@ namespace API.Controllers
             return new UserDto {
                 Username = user.Username,
                 Token = _tokenService.CreateToken(user),
-                KnownAs = user.KnownAs
+                KnownAs = user.KnownAs,
+                Gender = user.Gender
             };
         }
         [HttpPost("login")]
@@ -68,8 +68,10 @@ namespace API.Controllers
             return new UserDto {
                 Username = user.Username,
                 Token = _tokenService.CreateToken(user),
-                PhotoUrl = user.Photos.FirstOrDefault(x=>x.IsMain)?.Url,
-                KnownAs = user.KnownAs
+                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
+                KnownAs = user.KnownAs,
+                Gender = user.Gender
+
             };
         }
         private async Task<bool> UserExists(string username)

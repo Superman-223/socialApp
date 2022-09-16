@@ -37,6 +37,10 @@ namespace API.Entities
 
         public ICollection<Photo> Photos { get; set; }
 
+        public ICollection<UserLike> LikedByUsers { get; set; }
+
+        public ICollection<UserLike> LikedUsers { get; set; }
+
 
         //public int GetAge()
         //{
