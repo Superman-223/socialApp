@@ -33,10 +33,11 @@ namespace API.Controllers
         }
 
         [HttpGet()]
+        //[Authorize(Roles ="Admin")] Instead of doing this use => Policy base authorization.
         public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
           var user = await _userRepo.GetUserByUsernameAsync(User.GetUsername()); 
-          userParams.CurrentUsername = user.Username;
+          userParams.CurrentUsername = user.UserName;
 
           if (string.IsNullOrWhiteSpace(userParams.Gender))
               userParams.Gender = user.Gender == "male" ? "female" : "male";
@@ -47,9 +48,9 @@ namespace API.Controllers
 
           return Ok(users);
         }
-         
 
 
+        //[Authorize(Roles = "Member")]
         [HttpGet("{username}", Name="GetUser")]
         public async Task<ActionResult<MemberDto>> GetUser(string  username)
         {
@@ -93,7 +94,7 @@ namespace API.Controllers
 
             if (await _userRepo.SaveAllAsync())
             {
-                return CreatedAtRoute("GetUser", new { username = user.Username } ,_mapper.Map<PhotoDto>(photo));
+                return CreatedAtRoute("GetUser", new { username = user.UserName } ,_mapper.Map<PhotoDto>(photo));
             }
 
             return BadRequest("Problem adding photo.");

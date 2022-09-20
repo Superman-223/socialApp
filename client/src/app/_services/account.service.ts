@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { refsToArray } from '@angular/compiler/src/render3/util';
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
@@ -27,6 +28,9 @@ export class AccountService {
     );
   }
   setCurrentUser(user : User){
+    user.roles = [];
+    const roles = this.getDecodedToken(user.token).role;
+    Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
@@ -44,5 +48,9 @@ export class AccountService {
         return user;
       })
     )
+  }
+
+  getDecodedToken(token){
+     return JSON.parse(atob(token.split('.')[1]));
   }
 }

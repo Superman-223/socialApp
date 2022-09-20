@@ -47,9 +47,9 @@ namespace API.Data
 
             query = messageParams.Container switch
             {
-                "Inbox" => query.Where(u => u.Recipient.Username == messageParams.Username && u.RecipientDeleted == false),
-                "Outbox" => query.Where(u => u.Sender.Username == messageParams.Username && u.SenderDeleted == false),
-                _ => query.Where(u => u.Recipient.Username == messageParams.Username &&  u.RecipientDeleted == false && u.DateRead == null)
+                "Inbox" => query.Where(u => u.Recipient.UserName == messageParams.Username && u.RecipientDeleted == false),
+                "Outbox" => query.Where(u => u.Sender.UserName == messageParams.Username && u.SenderDeleted == false),
+                _ => query.Where(u => u.Recipient.UserName == messageParams.Username &&  u.RecipientDeleted == false && u.DateRead == null)
 
             };
 
@@ -65,12 +65,12 @@ namespace API.Data
             var messages = await _context.Messages
                 .Include(u => u.Sender).ThenInclude(p=>p.Photos)
                 .Include(u => u.Recipient).ThenInclude(p => p.Photos)
-                .Where(msg => msg.Recipient.Username == currentUsername && msg.RecipientDeleted == false && msg.Sender.Username == recipientUsername
-                                                                || msg.Recipient.Username == recipientUsername && msg.SenderDeleted == false && msg.Sender.Username == currentUsername)
+                .Where(msg => msg.Recipient.UserName == currentUsername && msg.RecipientDeleted == false && msg.Sender.UserName == recipientUsername
+                                                                || msg.Recipient.UserName == recipientUsername && msg.SenderDeleted == false && msg.Sender.UserName == currentUsername)
                                                                 .OrderBy(msg => msg.MessageSent)
                                                                 .ToListAsync();
             var unreadMessages = messages.Where(msg => msg.DateRead == null &&
-             msg.Recipient.Username == currentUsername).ToList();
+             msg.Recipient.UserName == currentUsername).ToList();
 
             if (unreadMessages.Any())
             {
