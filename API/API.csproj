@@ -38,6 +38,7 @@
     <None Remove="Helpers\" />
     <None Remove="CloudinaryDotNet" />
     <None Remove="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <None Remove="SignalR\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
@@ -49,5 +50,6 @@
     <Folder Include="Errors\" />
     <Folder Include="Middleware\" />
     <Folder Include="Helpers\" />
+    <Folder Include="SignalR\" />
   </ItemGroup>
 </Project>
