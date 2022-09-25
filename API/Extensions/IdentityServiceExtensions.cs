@@ -34,7 +34,7 @@ namespace API.Extensions
             ValidateIssuer = false,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"])),
             ValidateIssuerSigningKey = true,
-            ValidateAudience = false,
+            ValidateAudience =  false,
         };
         // For Signal R, signalR will send our auth under the name : access_token
         opt.Events = new JwtBearerEvents
