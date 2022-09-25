@@ -58,10 +58,7 @@ export class MessageService {
   }
 
   stopHubConnection(){
-    console.log("before");
-
     if(this.hubConnection){
-      console.log("after");
       this.hubConnection.stop();
     }
   }

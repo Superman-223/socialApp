@@ -54,11 +54,19 @@ namespace API
             app.UseAuthentication();
             app.UseAuthorization();
 
+            // as Angular project will be store as a static file (javascript) we need to tell the API to use
+            // static files
+            app.UseDefaultFiles(); // If there is an index.html, it will be used thanks to this line
+
+            app.UseStaticFiles();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<PresenceHub>("hubs/presence");
                 endpoints.MapHub<MessageHub>("hubs/message");
+                // After creating a controller file with the fallback controller and methode and file of our Angular
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }
